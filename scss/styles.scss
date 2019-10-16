@@ -1,22 +1,140 @@
-.cell-container {
-    display: flex;
-    flex-wrap: wrap;
 
-    &__cells {
-        border: 1px solid #000;
-        width: 100px;
-        height: 100px;
-      
-        display: flex;
-        flex-wrap: wrap;
+
+
+
+// TYPEFACES --------------------------------------------------
+
+@font-face {
+    font-family: 'Monaco';
+    src: url(/fonts/monaco.ttf)
+}
+
+
+
+// CORE --------------------------------------------------
+
+* {
+    font-size: 11px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #1A1A1A;
+    color: #CCCCCC;
+    font-family: 'Monaco';
+    line-height: 1.5;
+}
+
+
+
+
+
+// MODULES  --------------------------------------------------
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 4.091em;
+
+    &__info {
+        max-width: 44em;
     }
 }
 
-  
-.cell-fill-playerOne {
-background-color: red;
+.terminal {
+
+    background-color: #1f1f1f;
+    padding: 1.2em 4.091em;
+    flex-grow: 2;
+
+    &__section {
+        display: flex;
+        justify-content: space-between;
+
+        &-input {
+            display: flex;
+            margin-top: 0.273em;
+        }
+
+        &-graphic {
+            max-width: 2.273em;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
 }
 
+
+
+
+
+// ELEMENTS --------------------------------------------------
+
+.player-move-input {
+    background: none;
+    border: none;
+    font-family: 'Monaco';
+    margin-left: 0.909em;
+}
+
+p {
+    color: #7B7B7B;
+    margin-bottom: 1.364em;
+}
+
+h1 {
+    margin-bottom: 0.909em;
+}
+
+.cells {
+    width: 6px;
+    height: 6px;
+}
+
+.cell-column .cells:nth-child(2) {
+    margin: 2px 0;
+}
+
+.cell-column-two {
+    margin: 0 2px;
+}
+
+
+
+
+// HELPERS --------------------------------------------------
+
+.d-block {
+    display: block;
+}
+
+.d-none {
+    display: none;
+}
+
+.mb10 {
+    margin-bottom: 0.909em;
+}
+
+.colour-light {
+    color: #CCCCCC;
+}
+
+
+
+
+// STATES --------------------------------------------------
+
+  
+.cell-fill-playerOne {
+    border: 1px solid #CCCCCC;
+    border-radius: 50%;
+}
+    
 .cell-fill-playerTwo {
-background-color: blue;
+    background-color: #CCCCCC;
+    border-radius: 50%;
 }

@@ -35,13 +35,13 @@ var commands = [
 
 var board = { //cell references
     'top_left': 0,
-    'top_centre': 1,
-    'top_right': 2,
-    'middle_left': 3,
+    'middle_left': 1,
+    'bottom_left': 2,
+    'top_centre': 3,
     'middle': 4,
-    'middle_right': 5,
-    'bottom_left': 6,
-    'bottom_centre': 7,
+    'bottom_centre': 5,
+    'top_right': 6,
+    'middle_right': 7,
     'bottom_right': 8
 }
 
@@ -65,21 +65,6 @@ var currentTurn = game.currentPlayer //variable for currentTurn
 var currentPlayer = ''
 
 
-
-function clearGame() {
-    //update GUI stuff
-    totalNumMoves = 0
-    playerOneMovesArr = []
-    playerTwoMovesArr = []
-
-    currentPlayer = 'playerOne'
-    currentTurn = 0
-
-    cellsEl.forEach(function (e) {
-        e.classList.remove(`cell-fill-playerOne`)
-        e.classList.remove(`cell-fill-playerTwo`)
-    })
-}
 
 function checkGameStatus() {
     //check if playerMovesArr has these numbers 123 || 456 || 789 || 147 || 258 || 369 || 159 || 357
@@ -145,8 +130,8 @@ function changePlayer() {
 }
 
 //function to recieve input once triggered
-function checkIfLegalMove(playerMove) {
-    var cellReference = board[playerMove] //getting cell reference (1)
+function checkIfLegalMove(playerMoveCommand) {
+    var cellReference = board[playerMoveCommand] //getting cell reference (1)
     var chosenCellElem = cellsEl[cellReference] //cell chosen
     var chosenCellAttrCellUsage = chosenCellElem.getAttribute('data-cell-usage')
 
@@ -161,11 +146,33 @@ function checkIfLegalMove(playerMove) {
     }
 }
 
-function checkCommand() {
-    var playerMove = input.value //storing player move input value (middle)
+function clearGame() {
+    //update GUI stuff
+    totalNumMoves = 0
+    playerOneMovesArr = []
+    playerTwoMovesArr = []
 
-    if (commands.includes(playerMove)) {
-        checkIfLegalMove(playerMove)
+    currentPlayer = 'playerOne'
+    currentTurn = 0
+
+    cellsEl.forEach(function (e) {
+        e.classList.remove(`cell-fill-playerOne`)
+        e.classList.remove(`cell-fill-playerTwo`)
+    })
+}
+
+
+function checkCommand() {
+    var playerMoveCommand = input.value //storing player move input value (middle)
+
+    if (playerMoveCommand === 'init') {
+        playerTurnElem.textContent = currentPlayer
+        expandTerminal()
+        return
+    }
+
+    if (commands.includes(playerMoveCommand)) {
+        checkIfLegalMove(playerMoveCommand)
     } else {
         console.log('invalid')
     }
@@ -176,6 +183,7 @@ function checkCommand() {
 input.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         checkCommand()
+        input.value = ""
     }
 });
 

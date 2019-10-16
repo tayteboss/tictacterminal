@@ -1,29 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>tic_tac_terminal</title>
 </head>
+
 <body>
-    <div>
-        <p class="player-turn">playerOne</p><input class="player-move-input" type="text">
-    </div>
-    <section class="cell-container">
-        <div data-cell-usage="clear" data-cell-ref="0" class="cell-container__cells cells cell-1"></div>
-        <div data-cell-usage="clear" data-cell-ref="1" class="cell-container__cells cells cell-2"></div>
-        <div data-cell-usage="clear" data-cell-ref="2" class="cell-container__cells cells cell-3"></div>
-        <div data-cell-usage="clear" data-cell-ref="3" class="cell-container__cells cells cell-4"></div>
-        <div data-cell-usage="clear" data-cell-ref="4" class="cell-container__cells cells cell-5"></div>
-        <div data-cell-usage="clear" data-cell-ref="5" class="cell-container__cells cells cell-6"></div>
-        <div data-cell-usage="clear" data-cell-ref="6" class="cell-container__cells cells cell-7"></div>
-        <div data-cell-usage="clear" data-cell-ref="7" class="cell-container__cells cells cell-8"></div>
-        <div data-cell-usage="clear" data-cell-ref="8" class="cell-container__cells cells cell-9"></div>
-    </section>
+
+    <header class="header">
+        <div class="header__info">
+            <section class="info__welcome">
+                <h1>/$ welcome to tic_tac_terminal</h1>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna volutpat. </p>
+            </section>
+            <section class="info__instructions">
+                <h1>/$ instructions</h1>
+                <p class="mb10">begin by inputting the command ‘init’ in the terminal section below. players will take turns typing in their turns into the terminal. Use commands such as ‘top_left’ & ‘middle’ to signify your turn. a small graphical hint to the right of the screen will help show previous turns.</p> 
+                <p>click the hint button towards the top right of the screen for all commands & other hints</p>
+            </section>
+        </div>
+        <div class="header__commands">
+            <h1 class="commands__btn">/? commands</h1>
+            <div class="commands__list d-none">
+                <ul>
+                    <li><h1>'init'</h1><span> - begins initial game</span></li>
+                    <li><h1>'clear'</h1><span> - starts a new game</span></li>
+                    <li><h1>'top_left'</h1><span> - move top left of board</span></li>
+                    <li><h1>'top_centre'</h1><span> - move top centre of board</span></li>
+                    <li><h1>'top_right'</h1><span> - move top right of board</span></li>
+                    <li><h1>'middle_left'</h1><span> - move middle left of board</span></li>
+                    <li><h1>'middle'</h1><span> - move middle of board</span></li>
+                    <li><h1>'middle_right'</h1><span> - move middle right of board</span></li>
+                    <li><h1>'bottom_left'</h1><span> - move bottom left of board</span></li>
+                    <li><h1>'bottom_centre'</h1><span> - move bottom centre of board</span></li>
+                    <li><h1>'bottom_right'</h1><span> - move bottom right of board</span></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main class="terminal">
+        <section class="terminal__section">
+            <div class="terminal__section-input">
+                <div class="terminal__section-input-lead">
+                    <p>/$ tictacterminal_<span class="player-turn"></span></p>
+                </div>
+                <div class="terminal__section-input-input">
+                    <input class="player-move-input colour-light" placeholder="enter command" type="text">
+                </div>
+            </div>
+            <div class="terminal__section-graphic">
+                <div class="cell-column cell-column-one">
+                    <div data-cell-usage="clear" data-cell-ref="0" class="cell-fill-playerTwo cell-container__cells cells cell-0"></div>
+                    <div data-cell-usage="clear" data-cell-ref="3" class="cell-fill-playerTwo cell-container__cells cells cell-3"></div>
+                    <div data-cell-usage="clear" data-cell-ref="6" class="cell-container__cells cells cell-6"></div>
+                </div>
+                <div class="cell-column cell-column-two">
+                    <div data-cell-usage="clear" data-cell-ref="1" class="cell-container__cells cells cell-4"></div>
+                    <div data-cell-usage="clear" data-cell-ref="4" class="cell-container__cells cells cell-5"></div>
+                    <div data-cell-usage="clear" data-cell-ref="7" class="cell-container__cells cells cell-6"></div>
+                </div>
+                <div class="cell-column cell-column-three">
+                    <div data-cell-usage="clear" data-cell-ref="2" class="cell-container__cells cells cell-7"></div>
+                    <div data-cell-usage="clear" data-cell-ref="5" class="cell-container__cells cells cell-8"></div>
+                    <div data-cell-usage="clear" data-cell-ref="8" class="cell-container__cells cells cell-9"></div>
+                </div>
+            </div>
+        </section>
+    </main>
 
 
+    <script src="states.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
