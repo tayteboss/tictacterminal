@@ -15,10 +15,10 @@
     <header class="header">
         <div class="header__info">
             <section class="info__welcome">
-                <h1>/$ welcome to tic_tac_terminal</h1>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna volutpat. </p>
+                <h1 class="home-btn">/$ welcome to tic_tac_terminal</h1>
+                <p class="init-toggle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna volutpat. </p>
             </section>
-            <section class="info__instructions">
+            <section class="info__instructions init-toggle">
                 <h1>/$ instructions</h1>
                 <p class="mb10">begin by inputting the command ‘init’ in the terminal section below. players will take turns typing in their turns into the terminal. Use commands such as ‘top_left’ & ‘middle’ to signify your turn. a small graphical hint to the right of the screen will help show previous turns.</p> 
                 <p>click the hint button towards the top right of the screen for all commands & other hints</p>
@@ -28,17 +28,17 @@
             <h1 class="commands__btn">/? commands</h1>
             <div class="commands__list d-none">
                 <ul>
-                    <li><h1>'init'</h1><span> - begins initial game</span></li>
-                    <li><h1>'clear'</h1><span> - starts a new game</span></li>
-                    <li><h1>'top_left'</h1><span> - move top left of board</span></li>
-                    <li><h1>'top_centre'</h1><span> - move top centre of board</span></li>
-                    <li><h1>'top_right'</h1><span> - move top right of board</span></li>
-                    <li><h1>'middle_left'</h1><span> - move middle left of board</span></li>
-                    <li><h1>'middle'</h1><span> - move middle of board</span></li>
-                    <li><h1>'middle_right'</h1><span> - move middle right of board</span></li>
-                    <li><h1>'bottom_left'</h1><span> - move bottom left of board</span></li>
-                    <li><h1>'bottom_centre'</h1><span> - move bottom centre of board</span></li>
-                    <li><h1>'bottom_right'</h1><span> - move bottom right of board</span></li>
+                    <li><h1 class="lh1">'init'<span class="colour-dark lh1"> - begins initial game</span></h1></li>
+                    <li><h1 class="lh1">'clear'<span class="colour-dark lh1"> - starts a new game</span></h1></li>
+                    <li><h1 class="lh1">'top_left'<span class="colour-dark lh1"> - move top left of board</span></h1></li>
+                    <li><h1 class="lh1">'top_centre'<span class="colour-dark lh1"> - move top centre of board</span></h1></li>
+                    <li><h1 class="lh1">'top_right'<span class="colour-dark lh1"> - move top right of board</span></h1></li>
+                    <li><h1 class="lh1">'middle_left'<span class="colour-dark lh1"> - move middle left of board</span></h1></li>
+                    <li><h1 class="lh1">'middle'<span class="colour-dark lh1"> - move middle of board</span></h1></li>
+                    <li><h1 class="lh1">'middle_right'<span class="colour-dark lh1"> - move middle right of board</span></h1></li>
+                    <li><h1 class="lh1">'bottom_left'<span class="colour-dark lh1"> - move bottom left of board</span></h1></li>
+                    <li><h1 class="lh1">'bottom_centre'<span class="colour-dark lh1"> - move bottom centre of board</span></h1></li>
+                    <li><h1 class="lh1">'bottom_right'<span class="colour-dark lh1"> - move bottom right of board</span></h1></li>
                 </ul>
             </div>
         </div>
@@ -52,6 +52,9 @@
                 <div class="terminal__section-input-input">
                     <input class="player-move-input colour-light" placeholder="enter command" type="text">
                 </div>
+            </div>
+            <div class="terminal__section-error">
+                <p class="error-field"></p>
             </div>
             <div class="terminal__section-graphic">
                 <div class="cell-column cell-column-one">
@@ -74,6 +77,7 @@
     </main>
 
 
+    <script src="jquery.js"></script>
     <script src="states.js"></script>
     <script src="main.js"></script>
 </body>

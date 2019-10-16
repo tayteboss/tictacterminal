@@ -30,7 +30,8 @@ var commands = [
     'middle_right',
     'bottom_left',
     'bottom_centre',
-    'bottom_right'
+    'bottom_right',
+    'restart'
 ]
 
 var board = { //cell references
@@ -55,8 +56,9 @@ var game = { //storing all generic game details
 }
 
 var input = document.querySelector('.player-move-input') //variable for input field
-var playerTurnElem = document.querySelector('.player-turn')
-var cellsEl = document.querySelectorAll('.cells') // location cells elements
+var playerTurnElem = document.querySelector('.player-turn') //variable for where playerturn text will go
+var cellsEl = document.querySelectorAll('.cells') //location cells elements
+var errorElem = document.querySelector('.error-field') //variable for where errors will be logged
 
 var playerOneMovesArr = game.playerMoves.playerOneMoves //variable for playerOneArray
 var playerTwoMovesArr = game.playerMoves.playerTwoMoves //variable for playerTwoArray
@@ -66,15 +68,28 @@ var currentPlayer = ''
 
 
 
-function checkGameStatus() {
-    //check if playerMovesArr has these numbers 123 || 456 || 789 || 147 || 258 || 369 || 159 || 357
-    //if so evaluateWinner
-    //if not play next move
+function winningState(playerMoveCommand) {
+    input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            if (playerMoveCommand !== 'restart') {
+                errorElem.textContent = `type 'restart' to play again!`
+            } else {
+                clearGame()
+            }
+        }
+    });
+}
 
-    var currentPlayerArr = []
+function checkGameStatus(playerMoveCommand) {
+
+    if (totalNumMoves === 9) { //testing whether it's a tie
+        errorElem.textContent = "notification: it's a tie - type 'clear' to play again"
+    }
+
+    var currentPlayerArr = [] //creating a temporary array for the current player
 
     if (currentPlayer === 'playerOne') {
-        currentPlayerArr = playerOneMovesArr
+        currentPlayerArr = playerOneMovesArr //current player array now = their global array
     } else {
         currentPlayerArr = playerTwoMovesArr
     }
@@ -89,14 +104,10 @@ function checkGameStatus() {
     var winningCombo8 = currentPlayerArr.includes(2) && currentPlayerArr.includes(4) && currentPlayerArr.includes(6)
 
     if (winningCombo1 || winningCombo2 || winningCombo3 || winningCombo4 || winningCombo5 || winningCombo6 || winningCombo7 || winningCombo8) {
-        console.log(`${currentPlayer} wins`)
-        // print which player wins
-        // don't allow next turn
-    } else {
-        console.log(`${currentPlayer} hasn't won`)
+        errorElem.textContent = `notification: ${currentPlayer} wins - type 'clear' to play again`
+        winningState(playerMoveCommand)
     }
 }
-
 
 function updateGameStats(cellReference) {
 
@@ -108,13 +119,13 @@ function updateGameStats(cellReference) {
     totalNumMoves++ //update the totalnummoves 
 }
 
-
-
 function updateGUI(chosenCellElem) { //function to update board
 
     chosenCellElem.classList.add(`cell-fill-${currentPlayer}`)
     chosenCellElem.setAttribute('data-cell-usage', 'filled')
 
+    errorElem.textContent = "" //clearing any errors
+    input.value = "" //clearing the input field
 }
 
 function changePlayer() {
@@ -136,11 +147,11 @@ function checkIfLegalMove(playerMoveCommand) {
     var chosenCellAttrCellUsage = chosenCellElem.getAttribute('data-cell-usage')
 
     if (chosenCellAttrCellUsage === 'filled') {
-        console.log('move already been done')
+        errorElem.textContent = 'typeError: move already played'
     } else {
         updateGUI(chosenCellElem) //call updateboard function
         updateGameStats(cellReference) //call updategamestats function
-        checkGameStatus()
+        checkGameStatus(playerMoveCommand)
         changePlayer()
 
     }
@@ -155,15 +166,20 @@ function clearGame() {
     currentPlayer = 'playerOne'
     currentTurn = 0
 
+    playerTurnElem.textContent = '' //clearing playerturn text
+    errorElem.textContent = '' //clearing any errors
+    input.value = '' //clearing the input field
+
     cellsEl.forEach(function (e) {
         e.classList.remove(`cell-fill-playerOne`)
         e.classList.remove(`cell-fill-playerTwo`)
+        e.setAttribute('data-cell-usage', 'clear')
     })
 }
 
-
 function checkCommand() {
-    var playerMoveCommand = input.value //storing player move input value (middle)
+
+    var playerMoveCommand = input.value // storing player move input value (middle)
 
     if (playerMoveCommand === 'init') {
         playerTurnElem.textContent = currentPlayer
@@ -171,10 +187,15 @@ function checkCommand() {
         return
     }
 
+    if (playerMoveCommand === 'clear') {
+        clearGame()
+        return
+    }
+
     if (commands.includes(playerMoveCommand)) {
         checkIfLegalMove(playerMoveCommand)
     } else {
-        console.log('invalid')
+        errorElem.textContent = 'typeError: invalid command'
     }
 }
 
@@ -183,7 +204,6 @@ function checkCommand() {
 input.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         checkCommand()
-        input.value = ""
     }
 });
 
@@ -192,9 +212,6 @@ clearGame()
 
 
 
-
-
-
-
-// can't work how to only run the program with appropriate commands
-// can't work out logic for when a user types in a move that's already been done
+// stop the game once there's a winner
+// only start the game once 'init' has been input
+// store scores

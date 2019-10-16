@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Monaco";
-  src: url(/fonts/monaco.ttf);
+  src: url(../fonts/monaco.ttf);
 }
 * {
   font-size: 11px;
@@ -25,6 +25,9 @@ body {
 .header__info {
   max-width: 44em;
 }
+.header__commands {
+  text-align: right;
+}
 
 .terminal {
   background-color: #1f1f1f;
@@ -33,16 +36,24 @@ body {
 }
 .terminal__section {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .terminal__section-input {
   display: flex;
+  flex: 1;
   margin-top: 0.273em;
 }
 .terminal__section-graphic {
   max-width: 2.273em;
   display: flex;
   flex-wrap: wrap;
+}
+.terminal__section-error {
+  margin-top: 0.273em;
+  margin-right: 2.273em;
+}
+.terminal__section-error p {
+  color: #CCCCCC;
 }
 
 .player-move-input {
@@ -59,6 +70,12 @@ p {
 
 h1 {
   margin-bottom: 0.909em;
+  font-weight: 100;
+}
+
+li {
+  list-style-type: none;
+  font-weight: 100;
 }
 
 .cells {
@@ -90,6 +107,14 @@ h1 {
   color: #CCCCCC;
 }
 
+.colour-dark {
+  color: #7B7B7B;
+}
+
+.lh1 {
+  line-height: 1;
+}
+
 .cell-fill-playerOne {
   border: 1px solid #CCCCCC;
   border-radius: 50%;
@@ -98,6 +123,16 @@ h1 {
 .cell-fill-playerTwo {
   background-color: #CCCCCC;
   border-radius: 50%;
+}
+
+.commands__btn, .home-btn {
+  color: #CCCCCC;
+  transition: color 300ms ease;
+}
+
+.commands__btn:hover, .home-btn:hover {
+  cursor: pointer;
+  color: #7B7B7B;
 }
 
 /*# sourceMappingURL=styles.css.map */
