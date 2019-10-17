@@ -1,7 +1,7 @@
 # tic_tac_terminal
 **For those who enjoy a wholesome cli experience.**
 
-![tic_tac_toe screenshot](screenshot-1.jpg)
+![tic_tac_toe screenshot](screenshot.jpg)
 
 ### Initiate Gameplay Here
 https://tayteboss.github.io/tictacterminal/
