@@ -1,7 +1,7 @@
 # tic_tac_terminal
 **For those who enjoy a wholesome cli experience.**
 
-![tic_tac_toe screenshot](screenshot.jpg)
+![tic_tac_toe screenshot](screenshot-1.jpg)
 
 ### Initiate Gameplay Here
 https://tayteboss.github.io/tictacterminal/
@@ -41,4 +41,5 @@ Towards the end of the build I struggled to work out what some variables were at
 ## WIP
 * Not allowing any other commands beside 'init' at the begginning of the game.
 * Audio for the landing screen.
+* Single player experience.
 * Refactoring Code.
