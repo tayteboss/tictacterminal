@@ -1,6 +1,6 @@
 # tic_tac_terminal
 
-![alt text](img/placeholder.jpg)
+![alt text](placeholder.jpg)
 
 ### initiate gameplay here
 https://tayteboss.github.io/tictacterminal/
