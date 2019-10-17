@@ -5,6 +5,7 @@ var commandListElem = document.querySelector('.commands__list')
 var homeBtn = document.querySelector('.home-btn')
 
 function expandTerminal() {
+    input.value = '' //clearing the input field
     initToggleElems.forEach(function(elem) {
         $(elem).slideToggle('slow')
     })

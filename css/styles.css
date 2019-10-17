@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #1A1A1A;
+  background-color: #161616;
   color: #CCCCCC;
   font-family: "Monaco";
   line-height: 1.5;
@@ -37,6 +37,13 @@ body {
 .terminal__section {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
+}
+.terminal__section--history {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1f1f1f90;
+  padding: 1.2em 4.091em 0.3em;
 }
 .terminal__section-input {
   display: flex;
@@ -64,7 +71,7 @@ body {
 }
 
 p {
-  color: #7B7B7B;
+  color: #999899;
   margin-bottom: 1.364em;
 }
 

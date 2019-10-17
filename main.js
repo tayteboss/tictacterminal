@@ -59,6 +59,8 @@ var input = document.querySelector('.player-move-input') //variable for input fi
 var playerTurnElem = document.querySelector('.player-turn') //variable for where playerturn text will go
 var cellsEl = document.querySelectorAll('.cells') //location cells elements
 var errorElem = document.querySelector('.error-field') //variable for where errors will be logged
+var terminalSectionHistory = document.querySelector('.terminal__section--history')
+var terminalSection = document.querySelector('.terminal__section')
 
 var playerOneMovesArr = game.playerMoves.playerOneMoves //variable for playerOneArray
 var playerTwoMovesArr = game.playerMoves.playerTwoMoves //variable for playerTwoArray
@@ -104,7 +106,7 @@ function checkGameStatus(playerMoveCommand) {
     var winningCombo8 = currentPlayerArr.includes(2) && currentPlayerArr.includes(4) && currentPlayerArr.includes(6)
 
     if (winningCombo1 || winningCombo2 || winningCombo3 || winningCombo4 || winningCombo5 || winningCombo6 || winningCombo7 || winningCombo8) {
-        errorElem.textContent = `notification: ${currentPlayer} wins - type 'clear' to play again`
+        errorElem.textContent = `${currentPlayer} wins - type 'clear' to play again`
         winningState(playerMoveCommand)
     }
 }
@@ -123,6 +125,12 @@ function updateGUI(chosenCellElem) { //function to update board
 
     chosenCellElem.classList.add(`cell-fill-${currentPlayer}`)
     chosenCellElem.setAttribute('data-cell-usage', 'filled')
+
+    $(terminalSectionHistory).append(terminalSectionHistory)
+    $(terminalSectionHistory).append($(terminalSection).clone())
+    $(terminalSectionHistory).slideDown('slow')
+
+    currentPlayer = 'playerOne'
 
     errorElem.textContent = "" //clearing any errors
     input.value = "" //clearing the input field
