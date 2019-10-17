@@ -63,6 +63,20 @@ body {
   color: #CCCCCC;
 }
 
+.landing-screen {
+  width: 100vw;
+  height: 100vh;
+  background-color: #161616;
+  color: #CCCCCC;
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+.landing-screen__logo {
+  width: 80%;
+}
+
 .player-move-input {
   background: none;
   border: none;
@@ -76,7 +90,7 @@ p {
 }
 
 h1 {
-  margin-bottom: 0.909em;
+  margin-bottom: 0.78em;
   font-weight: 100;
 }
 

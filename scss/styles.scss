@@ -91,6 +91,21 @@ body {
     }
 }
 
+.landing-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: #161616;
+    color: #CCCCCC;
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    &__logo {
+        width: 80%;
+    }
+}
+
 
 
 
@@ -110,7 +125,7 @@ p {
 }
 
 h1 {
-    margin-bottom: 0.909em;
+    margin-bottom: 0.78em;
     font-weight: 100;
 }
 
