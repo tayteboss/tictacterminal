@@ -40,7 +40,7 @@ body {
     padding: 4.091em;
 
     &__info {
-        max-width: 44em;
+        max-width: 46em;
     }
 
     &__commands {
@@ -106,6 +106,21 @@ body {
     }
 }
 
+.credit-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: #161616;
+    color: #CCCCCC;
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    &__img {
+        width: 80%;
+    }
+}
+
 
 
 
@@ -147,6 +162,10 @@ li {
     margin: 0 2px;
 }
 
+.scores {
+    display: flex;
+}
+
 
 
 
@@ -176,6 +195,10 @@ li {
     line-height: 1;
 }
 
+.ml20 {
+    margin-left: 20px;
+}
+
 
 
 
@@ -201,3 +224,7 @@ li {
     cursor: pointer;
     color: #7B7B7B;
 }
+
+// #Layer_1-2 path {
+//     display: none;
+// }

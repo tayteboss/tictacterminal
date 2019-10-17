@@ -23,7 +23,7 @@ body {
   padding: 4.091em;
 }
 .header__info {
-  max-width: 44em;
+  max-width: 46em;
 }
 .header__commands {
   text-align: right;
@@ -77,6 +77,20 @@ body {
   width: 80%;
 }
 
+.credit-screen {
+  width: 100vw;
+  height: 100vh;
+  background-color: #161616;
+  color: #CCCCCC;
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+.credit-screen__img {
+  width: 80%;
+}
+
 .player-move-input {
   background: none;
   border: none;
@@ -112,6 +126,10 @@ li {
   margin: 0 2px;
 }
 
+.scores {
+  display: flex;
+}
+
 .d-block {
   display: block;
 }
@@ -134,6 +152,10 @@ li {
 
 .lh1 {
   line-height: 1;
+}
+
+.ml20 {
+  margin-left: 20px;
 }
 
 .cell-fill-playerOne {

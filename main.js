@@ -31,7 +31,6 @@ var commands = [
     'bottom_left',
     'bottom_centre',
     'bottom_right',
-    'restart'
 ]
 
 var board = { //cell references
@@ -52,7 +51,9 @@ var game = { //storing all generic game details
         playerOneMoves: [],
         playerTwoMoves: [],
     },
-    currentPlayer: 0
+    currentPlayer: 0,
+    playerOneScore: 0,
+    playerTwoScore: 0
 }
 
 var input = document.querySelector('.player-move-input') //variable for input field
@@ -61,28 +62,43 @@ var cellsEl = document.querySelectorAll('.cells') //location cells elements
 var errorElem = document.querySelector('.error-field') //variable for where errors will be logged
 var terminalSectionHistory = document.querySelector('.terminal__section--history')
 var terminalSection = document.querySelector('.terminal__section')
+var playerOneTotalScoreElem = document.querySelector('.player-one-score')
+var playerTwoTotalScoreElem = document.querySelector('.player-two-score')
+var counter = 5
 
 var playerOneMovesArr = game.playerMoves.playerOneMoves //variable for playerOneArray
 var playerTwoMovesArr = game.playerMoves.playerTwoMoves //variable for playerTwoArray
 var totalNumMoves = game.numMoves //variable for total moves played
 var currentTurn = game.currentPlayer //variable for currentTurn
-var currentPlayer = ''
+var playerOneTotalScore = game.playerOneScore
+var playerTwoTotalScore = game.playerTwoScore
 
 
 
-function winningState(playerMoveCommand) {
-    input.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            if (playerMoveCommand !== 'restart') {
-                errorElem.textContent = `type 'restart' to play again!`
-            } else {
-                clearGame()
-            }
-        }
-    });
+
+function checkMatchWin() {
+    if (playerOneTotalScore === 2) {
+        matchWinCredit('playerOne')
+        clearRound()
+    } else if (playerTwoTotalScore === 2) {
+        matchWinCredit('playerTwo')
+        clearRound()
+    }
 }
 
-function checkGameStatus(playerMoveCommand) {
+function winningState(currentPlayer) {
+    var newGame = setInterval(function(){
+    errorElem.textContent = `${currentPlayer} wins! new game in ${counter}secs`
+    counter--
+    if (counter === -1) {
+        clearGame();
+        clearInterval(newGame);
+    }
+    }, 1000);
+    counter = 5
+}
+
+function checkGameStatus() {
 
     if (totalNumMoves === 9) { //testing whether it's a tie
         errorElem.textContent = "notification: it's a tie - type 'clear' to play again"
@@ -91,24 +107,43 @@ function checkGameStatus(playerMoveCommand) {
     var currentPlayerArr = [] //creating a temporary array for the current player
 
     if (currentPlayer === 'playerOne') {
-        currentPlayerArr = playerOneMovesArr //current player array now = their global array
+        currentPlayerArr = playerOneMovesArr //current player array now = playerOneArr
     } else {
-        currentPlayerArr = playerTwoMovesArr
+        currentPlayerArr = playerTwoMovesArr //current player array now = playerTwoArr
     }
 
-    var winningCombo1 = currentPlayerArr.includes(0) && currentPlayerArr.includes(1) && currentPlayerArr.includes(2)
-    var winningCombo2 = currentPlayerArr.includes(3) && currentPlayerArr.includes(4) && currentPlayerArr.includes(5)
-    var winningCombo3 = currentPlayerArr.includes(6) && currentPlayerArr.includes(7) && currentPlayerArr.includes(8)
-    var winningCombo4 = currentPlayerArr.includes(0) && currentPlayerArr.includes(3) && currentPlayerArr.includes(6)
-    var winningCombo5 = currentPlayerArr.includes(1) && currentPlayerArr.includes(4) && currentPlayerArr.includes(7)
-    var winningCombo6 = currentPlayerArr.includes(2) && currentPlayerArr.includes(5) && currentPlayerArr.includes(8)
-    var winningCombo7 = currentPlayerArr.includes(0) && currentPlayerArr.includes(4) && currentPlayerArr.includes(8)
-    var winningCombo8 = currentPlayerArr.includes(2) && currentPlayerArr.includes(4) && currentPlayerArr.includes(6)
+    var winningCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
 
-    if (winningCombo1 || winningCombo2 || winningCombo3 || winningCombo4 || winningCombo5 || winningCombo6 || winningCombo7 || winningCombo8) {
-        errorElem.textContent = `${currentPlayer} wins - type 'clear' to play again`
-        winningState(playerMoveCommand)
-    }
+    winningCombos.forEach(function(winningCombosArr) {
+
+        var thereIsAWinner = winningCombosArr.every(function(val) {
+            return currentPlayerArr.indexOf(val) >= 0;
+        })
+
+        if (thereIsAWinner) {
+            if (currentPlayer === 'playerOne') { //updating total scores
+                playerOneTotalScore++
+                playerOneTotalScoreElem.textContent = playerOneTotalScore
+                checkMatchWin()
+                winningState(currentPlayer)
+            } else {
+                console.log(currentPlayer)
+                playerTwoTotalScore++
+                playerTwoTotalScoreElem.textContent = playerTwoTotalScore
+                checkMatchWin()
+                winningState(currentPlayer)
+            }
+        }
+    })
 }
 
 function updateGameStats(cellReference) {
@@ -116,7 +151,7 @@ function updateGameStats(cellReference) {
     if (currentPlayer === 'playerOne') {
         playerOneMovesArr.push(cellReference) // pushing the players move into their array
     } else {
-        playerTwoMovesArr.push(cellReference)
+        playerTwoMovesArr.push(cellReference) // pushing the players move into their array
     }
     totalNumMoves++ //update the totalnummoves 
 }
@@ -125,14 +160,13 @@ function updateGUI(chosenCellElem) { //function to update board
 
     chosenCellElem.classList.add(`cell-fill-${currentPlayer}`)
     chosenCellElem.setAttribute('data-cell-usage', 'filled')
+    
+    errorElem.textContent = "" //clearing any errors
 
     $(terminalSectionHistory).append(terminalSectionHistory)
     $(terminalSectionHistory).append($(terminalSection).clone())
     $(terminalSectionHistory).slideDown('slow')
 
-    currentPlayer = 'playerOne'
-
-    errorElem.textContent = "" //clearing any errors
     input.value = "" //clearing the input field
 }
 
@@ -148,7 +182,6 @@ function changePlayer() {
     playerTurnElem.textContent = currentPlayer // update text for next persons turn
 }
 
-//function to recieve input once triggered
 function checkIfLegalMove(playerMoveCommand) {
     var cellReference = board[playerMoveCommand] //getting cell reference (1)
     var chosenCellElem = cellsEl[cellReference] //cell chosen
@@ -158,7 +191,7 @@ function checkIfLegalMove(playerMoveCommand) {
         errorElem.textContent = 'typeError: move already played'
     } else {
         updateGUI(chosenCellElem) //call updateboard function
-        updateGameStats(cellReference) //call updategamestats function
+        updateGameStats(cellReference) //call update game stats function
         checkGameStatus(playerMoveCommand)
         changePlayer()
 
@@ -171,10 +204,7 @@ function clearGame() {
     playerOneMovesArr = []
     playerTwoMovesArr = []
 
-    currentPlayer = 'playerOne'
-    currentTurn = 0
-
-    playerTurnElem.textContent = '' //clearing playerturn text
+    playerTurnElem.textContent = 'playerOne' //clearing playerturn text
     errorElem.textContent = '' //clearing any errors
     input.value = '' //clearing the input field
 
@@ -183,11 +213,58 @@ function clearGame() {
         e.classList.remove(`cell-fill-playerTwo`)
         e.setAttribute('data-cell-usage', 'clear')
     })
+
+    currentPlayer = 'playerOne'
+    currentTurn = 0
+
+    $(terminalSectionHistory).hide()
+
+    var terminalSectionHistoryChildren = terminalSectionHistory.childNodes; 
+    while (terminalSectionHistoryChildren.length > 0) {
+        terminalSectionHistoryChildren[0].remove()
+    }
+
+}
+
+function clearRound() {
+    //update GUI stuff
+    totalNumMoves = 0
+    playerOneMovesArr = []
+    playerTwoMovesArr = []
+    playerOneTotalScore = 0
+    playerOneTotalScoreElem.textContent = playerOneTotalScore
+    playerTwoTotalScore = 0
+    playerTwoTotalScoreElem.textContent = playerTwoTotalScore
+
+    playerTurnElem.textContent = 'playerOne' //clearing playerturn text
+    errorElem.textContent = '' //clearing any errors
+    input.value = '' //clearing the input field
+
+    cellsEl.forEach(function (e) {
+        e.classList.remove(`cell-fill-playerOne`)
+        e.classList.remove(`cell-fill-playerTwo`)
+        e.setAttribute('data-cell-usage', 'clear')
+    })
+
+    currentPlayer = 'playerOne'
+    currentTurn = 0
+
+    $(terminalSectionHistory).hide()
+
+    var terminalSectionHistoryChildren = terminalSectionHistory.childNodes; 
+    while (terminalSectionHistoryChildren.length > 0) {
+        terminalSectionHistoryChildren[0].remove()
+    }
+
+    expandTerminal()
+
 }
 
 function checkCommand() {
 
     var playerMoveCommand = input.value // storing player move input value (middle)
+
+    input.placeholder = "enter command"
 
     if (playerMoveCommand === 'init') {
         playerTurnElem.textContent = currentPlayer
@@ -197,6 +274,7 @@ function checkCommand() {
 
     if (playerMoveCommand === 'clear') {
         clearGame()
+        playerTurnElem.textContent = currentPlayer
         return
     }
 
@@ -207,7 +285,6 @@ function checkCommand() {
     }
 }
 
-
 //while inputting value wait for enter key to be pressed
 input.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -215,11 +292,35 @@ input.addEventListener('keypress', function (e) {
     }
 });
 
-clearGame()
+function newGame() {
+
+    cellsEl.forEach(function (e) {
+        e.classList.remove(`cell-fill-playerOne`)
+        e.classList.remove(`cell-fill-playerTwo`)
+        e.setAttribute('data-cell-usage', 'clear')
+    })
+
+    input.placeholder = "type 'init' to begin" //clearing the input field
+
+    currentPlayer = 'playerOne'
+    currentTurn = 0
+
+    var terminalSectionHistoryChildren = terminalSectionHistory.childNodes; 
+    while (terminalSectionHistoryChildren.length > 0) {
+        terminalSectionHistoryChildren[0].remove()
+    }
+
+}
+
+newGame()
 
 
 
 
-// stop the game once there's a winner
+// reset game completely after winner reaches 2 wins
 // only start the game once 'init' has been input
-// store scores
+// play a sound on landing screen
+// get explanation of iffi on winningstate function -->
+
+// bugs
+// when playertwo ones. the counter goes to playerone
