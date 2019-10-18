@@ -85,7 +85,6 @@ function changePlayer() { // finally change the player turn
         currentTurn = 0
         currentPlayer = 'playerOne'
     }
-
     playerTurnElem.textContent = currentPlayer // update text for next persons turn
 }
 
@@ -208,8 +207,8 @@ function clearRound() { // runs once round is complete - clears most GUI & some 
     playerTwoMovesArr = []
 
     errorElem.textContent = ''
-    playerTurnElem.textContent = ''
-    input.value = "type 'init' to begin"
+    playerTurnElem.textContent = 'playerOne'
+    input.placeholder = "enter command"
 
     cellsEl.forEach(function (e) {
         e.classList.remove(`cell-fill-playerOne`)
@@ -227,8 +226,6 @@ function clearRound() { // runs once round is complete - clears most GUI & some 
         terminalSectionHistoryChildren[0].remove()
     }
 
-    newGame()
-
 }
 
 function clearGame() { // runs once game is complete - clears all GUI & Backend stats
@@ -239,9 +236,10 @@ function clearGame() { // runs once game is complete - clears all GUI & Backend 
     playerOneTotalScoreElem.textContent = playerOneTotalScore
     playerTwoTotalScore = 0
     playerTwoTotalScoreElem.textContent = playerTwoTotalScore
-    playerTurnElem.textContent = 'playerOne'
+    playerTurnElem.textContent = ''
     errorElem.textContent = ''
     input.value = ''
+    input.placeholder = "type 'init' to begin"
 
     cellsEl.forEach(function (e) {
         e.classList.remove(`cell-fill-playerOne`)
@@ -270,6 +268,7 @@ function checkCommand() { // checks the input value to decide whether to continu
     if (playerMoveCommand === 'init') { // if init is input - collapses the instructions section & displays playerturn
         expandTerminal()
         playerTurnElem.textContent = currentPlayer
+        input.placeholder = "enter command"
         return
     }
 
