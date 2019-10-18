@@ -91,7 +91,7 @@ function changePlayer() { // finally change the player turn
 
 function winningState(currentPlayer) { // run a 5 sec countdown before clearing round and notify who won
     var newGame = setInterval(function(){
-        errorElem.textContent = `${currentPlayer} wins! new game in ${counter}secs`
+        errorElem.textContent = `${currentPlayer} wins! new round in ${counter}secs`
         counter--
         if (counter === -1) {
             clearRound();
@@ -207,9 +207,9 @@ function clearRound() { // runs once round is complete - clears most GUI & some 
     playerOneMovesArr = []
     playerTwoMovesArr = []
 
-    playerTurnElem.textContent = 'playerOne'
     errorElem.textContent = ''
-    input.value = ''
+    playerTurnElem.textContent = ''
+    input.value = "type 'init' to begin"
 
     cellsEl.forEach(function (e) {
         e.classList.remove(`cell-fill-playerOne`)
@@ -226,6 +226,8 @@ function clearRound() { // runs once round is complete - clears most GUI & some 
     while (terminalSectionHistoryChildren.length > 0) {
         terminalSectionHistoryChildren[0].remove()
     }
+
+    newGame()
 
 }
 

@@ -45,6 +45,7 @@ Towards the end of the build I struggled to work out what some variables were at
 * Don't load an audio file on page load
 * Don't worry if a variable name is too long
 * Name functions based of these things (what does it take, what does it do, what does it return)
+* Don't accidently debug on the live site for 20mins...
 
 ## WIP
 * Not allowing any other commands beside 'init' at the begginning of the game.
