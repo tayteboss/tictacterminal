@@ -43,3 +43,4 @@ Towards the end of the build I struggled to work out what some variables were at
 * Audio for the landing screen.
 * Single player experience.
 * Refactoring Code.
+* Responsive Design.
