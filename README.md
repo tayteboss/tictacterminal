@@ -38,6 +38,14 @@ Flow Control seemed to be reoccuring problem throughout this process. Again I th
 ### Variable Naming
 Towards the end of the build I struggled to work out what some variables were at a glance. I had to refactor quite a few variable names to make more sense of what the code was doing at a glance.
 
+## Lessons Learned
+* Fail faster
+* Puesdocode!!
+* Don't worry about refactoring till logic is complete
+* Don't load an audio file on page load
+* Don't worry if a variable name is too long
+* Name functions based of these things (what does it take, what does it do, what does it return)
+
 ## WIP
 * Not allowing any other commands beside 'init' at the begginning of the game.
 * Audio for the landing screen.
